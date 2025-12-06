@@ -235,3 +235,38 @@ def delete_more_news(db: Session, item_id: int):
     db.delete(db_item)
     db.commit()
     return True
+
+
+
+# ----------------------- Flash News -----------------------
+
+def create_flash_news(db: Session, data: schemas.FlashNewsCreate):
+    db_item = models.FlashNews(title=data.title, status=data.status)
+    db.add(db_item)
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
+def update_flash_news(db: Session, flash_id: int, data: schemas.FlashNewsCreate):
+    db_item = db.query(models.FlashNews).filter(models.FlashNews.id == flash_id).first()
+    if not db_item:
+        return None
+    db_item.title = data.title
+    db_item.status = data.status
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
+def delete_flash_news(db: Session, flash_id: int):
+    db_item = db.query(models.FlashNews).filter(models.FlashNews.id == flash_id).first()
+    if not db_item:
+        return None
+    db.delete(db_item)
+    db.commit()
+    return True
+
+def get_all_flash_news(db: Session):
+    return db.query(models.FlashNews).all()
+
+def get_flash_news_by_id(db: Session, flash_id: int):
+    return db.query(models.FlashNews).filter(models.FlashNews.id == flash_id).first()

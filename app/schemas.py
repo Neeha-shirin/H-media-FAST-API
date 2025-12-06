@@ -98,3 +98,18 @@ class MoreNewsOut(MoreNewsBase):
 
     class Config:
         from_attributes = True
+
+
+class FlashNewsBase(BaseModel):
+    title: str
+    status: str  # active / inactive
+
+class FlashNewsCreate(FlashNewsBase):
+    pass
+
+class FlashNewsOut(FlashNewsBase):
+    id: int
+    created_at: datetime
+
+    class Config:
+        from_attributes = True

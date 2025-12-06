@@ -4,6 +4,8 @@ from .database import Base, engine
 from .routers import news, admin,banner,cinema_news
 from .routers import cinema_news
 from .routers import meet_the_person, more_news
+from app.routers import flashnews
+
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -36,3 +38,8 @@ app.include_router(meet_the_person.public_router)
 
 app.include_router(more_news.router)
 app.include_router(more_news.public_router)
+
+
+
+app.include_router(flashnews.router)
+app.include_router(flashnews.public_router)
