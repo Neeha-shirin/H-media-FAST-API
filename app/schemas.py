@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
 
-
 # ---------------- News ----------------
 
 class NewsBase(BaseModel):
@@ -12,17 +11,15 @@ class NewsBase(BaseModel):
     author: str
     image: Optional[str] = None
 
-
 class NewsCreate(NewsBase):
     pass
-
 
 class NewsOut(NewsBase):
     id: int
     created_at: datetime
 
     class Config:
-        from_attributes = True
+        from_attributes = True  # Pydantic v2
 
 
 # ---------------- Banner ----------------
@@ -30,12 +27,10 @@ class NewsOut(NewsBase):
 class BannerBase(BaseModel):
     title: str
     image: Optional[str] = None
-    status: str   # "active" or "inactive"
-
+    status: str  # "active" or "inactive"
 
 class BannerCreate(BannerBase):
     pass
-
 
 class BannerOut(BannerBase):
     id: int
@@ -43,3 +38,23 @@ class BannerOut(BannerBase):
 
     class Config:
         from_attributes = True
+
+
+# ---------------- Cinema News ----------------
+
+class CinemaNewsBase(BaseModel):
+    title: str
+    slug: str
+    content: str
+    author: str
+    image: Optional[str] = None
+
+class CinemaNewsCreate(CinemaNewsBase):
+    pass
+
+class CinemaNewsOut(CinemaNewsBase):
+    id: int
+    created_at: datetime
+
+    class Config:
+        from_attributes = True  # <-- FIXED

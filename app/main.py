@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import Base, engine
-from .routers import news, admin,banner
+from .routers import news, admin,banner,cinema_news
+from .routers import cinema_news
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -25,3 +26,7 @@ app.include_router(news.router)   # public news
 app.include_router(admin.router)  # admin CRUD
 app.include_router(banner.router)         # admin CRUD
 app.include_router(banner.public_router)  # public view
+
+
+app.include_router(cinema_news.router)        # admin endpoints
+app.include_router(cinema_news.public_router) # public endpoints

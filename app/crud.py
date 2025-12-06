@@ -78,3 +78,58 @@ def get_all_banners(db: Session):
 
 def get_banner_by_id(db: Session, banner_id: int):
     return db.query(models.Banner).filter(models.Banner.id == banner_id).first()
+
+
+
+#cinema 
+
+# ----------------------- Cinema News -----------------------
+
+from sqlalchemy.orm import Session
+from . import models, schemas
+
+
+# Create
+def create_cinema_news(db: Session, news: schemas.CinemaNewsCreate):
+    db_news = models.CinemaNews(
+        title=news.title,
+        slug=news.slug,
+        content=news.content,
+        author=news.author,
+        image=news.image
+    )
+    db.add(db_news)
+    db.commit()
+    db.refresh(db_news)
+    return db_news
+
+# Update
+def update_cinema_news(db: Session, news_id: int, news: schemas.CinemaNewsCreate):
+    db_news = db.query(models.CinemaNews).filter(models.CinemaNews.id == news_id).first()
+    if not db_news:
+        return None
+    db_news.title = news.title
+    db_news.slug = news.slug
+    db_news.content = news.content
+    db_news.author = news.author
+    db_news.image = news.image
+    db.commit()
+    db.refresh(db_news)
+    return db_news
+
+# Get all
+def get_all_cinema_news(db: Session):
+    return db.query(models.CinemaNews).all()
+
+# Get by id
+def get_cinema_news_by_id(db: Session, news_id: int):
+    return db.query(models.CinemaNews).filter(models.CinemaNews.id == news_id).first()
+
+# Delete
+def delete_cinema_news(db: Session, news_id: int):
+    db_news = db.query(models.CinemaNews).filter(models.CinemaNews.id == news_id).first()
+    if not db_news:
+        return None
+    db.delete(db_news)
+    db.commit()
+    return db_news

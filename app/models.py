@@ -22,3 +22,17 @@ class Banner(Base):
     image = Column(String, nullable=True)  # store banner image path
     status = Column(String, default="inactive")  # "active" or "inactive"
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    
+    
+
+class CinemaNews(Base):
+    __tablename__ = "cinema_news"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)
+    slug = Column(String, unique=True, nullable=False)
+    content = Column(String, nullable=False)
+    author = Column(String, nullable=False)
+    image = Column(String, nullable=True)  # image path
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
