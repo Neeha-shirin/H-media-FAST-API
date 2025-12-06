@@ -58,3 +58,43 @@ class CinemaNewsOut(CinemaNewsBase):
 
     class Config:
         from_attributes = True  # <-- FIXED
+
+
+# ---------------- Meet The Person ----------------
+
+class MeetThePersonBase(BaseModel):
+    title: str
+    slug: str
+    content: str
+    author: str
+    image: Optional[str] = None
+
+class MeetThePersonCreate(MeetThePersonBase):
+    pass
+
+class MeetThePersonOut(MeetThePersonBase):
+    id: int
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# ---------------- More News ----------------
+
+class MoreNewsBase(BaseModel):
+    title: str
+    slug: str
+    content: str
+    author: str
+    image: Optional[str] = None
+
+class MoreNewsCreate(MoreNewsBase):
+    pass
+
+class MoreNewsOut(MoreNewsBase):
+    id: int
+    created_at: datetime
+
+    class Config:
+        from_attributes = True

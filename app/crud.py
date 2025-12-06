@@ -133,3 +133,105 @@ def delete_cinema_news(db: Session, news_id: int):
     db.delete(db_news)
     db.commit()
     return db_news
+
+
+
+
+# ----------------------- Meet The Person -----------------------
+
+def create_meet_person(db: Session, data: schemas.MeetThePersonCreate):
+    db_item = models.MeetThePerson(
+        title=data.title,
+        slug=data.slug,
+        content=data.content,
+        author=data.author,
+        image=data.image
+    )
+    db.add(db_item)
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
+
+def update_meet_person(db: Session, item_id: int, data: schemas.MeetThePersonCreate):
+    db_item = db.query(models.MeetThePerson).filter(models.MeetThePerson.id == item_id).first()
+    if not db_item:
+        return None
+
+    db_item.title = data.title
+    db_item.slug = data.slug
+    db_item.content = data.content
+    db_item.author = data.author
+    db_item.image = data.image
+
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
+
+def get_all_meet_person(db: Session):
+    return db.query(models.MeetThePerson).all()
+
+
+def get_meet_person_by_id(db: Session, item_id: int):
+    return db.query(models.MeetThePerson).filter(models.MeetThePerson.id == item_id).first()
+
+
+def delete_meet_person(db: Session, item_id: int):
+    db_item = db.query(models.MeetThePerson).filter(models.MeetThePerson.id == item_id).first()
+    if not db_item:
+        return None
+
+    db.delete(db_item)
+    db.commit()
+    return True
+
+
+# ----------------------- More News -----------------------
+
+def create_more_news(db: Session, data: schemas.MoreNewsCreate):
+    db_item = models.MoreNews(
+        title=data.title,
+        slug=data.slug,
+        content=data.content,
+        author=data.author,
+        image=data.image
+    )
+    db.add(db_item)
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
+
+def update_more_news(db: Session, item_id: int, data: schemas.MoreNewsCreate):
+    db_item = db.query(models.MoreNews).filter(models.MoreNews.id == item_id).first()
+    if not db_item:
+        return None
+
+    db_item.title = data.title
+    db_item.slug = data.slug
+    db_item.content = data.content
+    db_item.author = data.author
+    db_item.image = data.image
+
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
+
+def get_all_more_news(db: Session):
+    return db.query(models.MoreNews).all()
+
+
+def get_more_news_by_id(db: Session, item_id: int):
+    return db.query(models.MoreNews).filter(models.MoreNews.id == item_id).first()
+
+
+def delete_more_news(db: Session, item_id: int):
+    db_item = db.query(models.MoreNews).filter(models.MoreNews.id == item_id).first()
+    if not db_item:
+        return None
+
+    db.delete(db_item)
+    db.commit()
+    return True
